@@ -19,11 +19,10 @@ cat << EOF > /usr/local/etc/v2ray/config.json
   },
   "inbounds": [
    {
-  "tag": "tg-in",
   "port": 443,
   "protocol": "mtproto",
   "settings": {
-    "users": [{"secret": "a0cbcef5a486d9636472ac27f8e11a9d"}]
+    "users": [{"secret": "$SECRET"}]
   }
 }
   ],
