@@ -5,7 +5,7 @@
     "vless"
   ],
   "env": {
-    "secret": {
+    "SECRET": {
       "description": "MTProto secret",
       "value": "a0cbcef5a486d9636472ac27f8e11a9d"
     }
