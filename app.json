@@ -1,0 +1,16 @@
+{
+  "name": "MTProto 仅可用于 Telegram",
+  "description": "Deploy MTProto on Heroku.",
+  "keywords": [
+    "vless"
+  ],
+  "env": {
+    "secret": {
+      "description": "MTProto secret",
+      "value": "a0cbcef5a486d9636472ac27f8e11a9d"
+    }
+  },
+  "website": "https://www.v2ray.com/chapter_02/protocols/mtproto.html",
+  "repository": "https://github.com/yuchen198/heroku-MTProto",
+  "stack": "container"
+}
