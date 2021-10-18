@@ -18,7 +18,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
     "loglevel": "none"
   },
   "inbounds": [{
-    "port": 5327,
+    "port": ${PORT},
     "protocol": "mtproto",
     "settings": {
       "users": [{"secret": "${SECRET}"}]
