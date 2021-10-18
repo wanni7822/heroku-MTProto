@@ -1,6 +1,6 @@
 {
-  "name": "MTProto 仅可用于 Telegram",
-  "description": "Deploy MTProto on Heroku.",
+  "name": "MT4TG",
+  "description": "Deploy MT4TG",
   "keywords": [
     "vless"
   ],
