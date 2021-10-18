@@ -19,10 +19,10 @@ cat << EOF > /usr/local/etc/v2ray/config.json
   },
   "inbounds": [
    {
-  "port": 404,
+  "port": ${PORT},
   "protocol": "mtproto",
   "settings": {
-    "users": [{"secret": "$SECRET"}]
+    "users": [{"secret": "${SECRET}"}]
   }
 }
   ],
