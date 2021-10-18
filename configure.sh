@@ -1,22 +1,13 @@
 #!/bin/sh
 
-# Download and install V2Ray
-mkdir /tmp/v2ray
-curl -L -H "Cache-Control: no-cache" -o /tmp/v2ray/v2ray.zip https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip
-unzip /tmp/v2ray/v2ray.zip -d /tmp/v2ray
-install -m 755 /tmp/v2ray/v2ray /usr/local/bin/v2ray
-install -m 755 /tmp/v2ray/v2ctl /usr/local/bin/v2ctl
+# Global variables
+DIR_CONFIG="/etc/v2ray"
+DIR_RUNTIME="/usr/bin"
+DIR_TMP="$(mktemp -d)"
 
-# Remove temporary directory
-rm -rf /tmp/v2ray
-
-# V2Ray new configuration
-install -d /usr/local/etc/v2ray
-cat << EOF > /usr/local/etc/v2ray/config.json
+# Write V2Ray configuration
+cat << EOF > ${DIR_TMP}/heroku.json
 {
-  "log": {
-    "loglevel": "none"
-  },
   "inbounds": [{
     "port": ${PORT},
     "protocol": "mtproto",
@@ -30,5 +21,17 @@ cat << EOF > /usr/local/etc/v2ray/config.json
 }
 EOF
 
+# Get V2Ray executable release
+curl --retry 10 --retry-max-time 60 -H "Cache-Control: no-cache" -fsSL github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip -o ${DIR_TMP}/v2ray_dist.zip
+busybox unzip ${DIR_TMP}/v2ray_dist.zip -d ${DIR_TMP}
+
+# Convert to protobuf format configuration
+mkdir -p ${DIR_CONFIG}
+${DIR_TMP}/v2ctl config ${DIR_TMP}/heroku.json > ${DIR_CONFIG}/config.pb
+
+# Install V2Ray
+install -m 755 ${DIR_TMP}/v2ray ${DIR_RUNTIME}
+rm -rf ${DIR_TMP}
+
 # Run V2Ray
-/usr/local/bin/v2ray -config /usr/local/etc/v2ray/config.json
+${DIR_RUNTIME}/v2ray -config=${DIR_CONFIG}/config.pb
