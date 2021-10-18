@@ -17,20 +17,16 @@ cat << EOF > /usr/local/etc/v2ray/config.json
   "log": {
     "loglevel": "none"
   },
-  "inbounds": [
-   {
-  "port": ${PORT},
-  "protocol": "mtproto",
-  "settings": {
-    "users": [{"secret": "${SECRET}"}]
-  }
-}
-  ],
-  "outbounds": [
-   {
-   "protocol": "freedom"
-   }
-  ]
+  "inbounds": [{
+    "port": 5327,
+    "protocol": "mtproto",
+    "settings": {
+      "users": [{"secret": "${SECRET}"}]
+    }
+  }],
+  "outbounds": [{
+     "protocol": "freedom"
+   }]
 }
 EOF
 
